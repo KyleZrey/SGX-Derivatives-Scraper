@@ -1,7 +1,7 @@
 import argparse
 import os
-from logger import setup_logger
-from datetime import datetime, timedelta, date
+from logger import setup_logger, setup_logger_file
+from datetime import datetime, timedelta
 import requests
 
 def download(dates):
@@ -15,6 +15,7 @@ def download(dates):
             index = date_to_index(date)
         except Exception as e:
             logger.error(f"Skipping date {date} due to error: {e}")
+            downloads_logger.error(f"Skipping date {date} due to error: {e}")
             continue
 
         date_dir = os.path.join(download_path, date)
@@ -32,8 +33,10 @@ def download(dates):
             try:
                 download_file(file_url, file_path)
                 logger.info(f"Downloaded {new_file_name} for date {date} to {file_path}")
+                downloads_logger.info(f"Downloaded {new_file_name} for date {date} to {file_path}")
             except Exception as e:
                 logger.error(f"Failed to download {new_file_name} for date {date}: {e}")
+                downloads_logger.error(f"Failed to download {new_file_name} for date {date}: {e}")
 
 def download_file(file_url, file_path):
     response = requests.get(file_url, stream=True)
@@ -132,6 +135,7 @@ def main():
         if any(datetime.strptime(date, '%Y-%m-%d').year < 2021 for date in dates):
             logger.info('Dates before 2021 have inconsistent indexing in the SGX Website, use with caution.')
         
+        # After arguments parsing, pass dates to download function
         download(dates)
 
 
@@ -141,7 +145,8 @@ def main():
         logger.error(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    logger = setup_logger()
+    logger = setup_logger("scraper.log")
+    downloads_logger = setup_logger_file("downloads.log")
     main()
 
 
