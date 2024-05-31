@@ -8,6 +8,7 @@ def download(dates):
     # Setup url and path variables
     url = "https://links.sgx.com/1.0.0/derivatives-historical/{index}/{file}"
     download_path = 'downloads'
+    failed_downloads = 'failed_downloads.txt'
     
     # If multiple dates loop around all of it
     for date in dates:
@@ -37,6 +38,9 @@ def download(dates):
             except Exception as e:
                 logger.error(f"Failed to download {new_file_name} for date {date}: {e}")
                 downloads_logger.error(f"Failed to download {new_file_name} for date {date}: {e}")
+                # Record the failed download
+                with open(failed_downloads, 'a') as f:
+                    f.write(f"{date} ")
 
 def download_file(file_url, file_path):
     response = requests.get(file_url, stream=True)
@@ -93,10 +97,19 @@ def main():
 
         elif args.date_range:
             logger.info("Processing date range option...")
+            yesterday = datetime.today() - timedelta(days=1)
             try:
                 start_date, end_date = args.date_range
                 start_date = datetime.strptime(start_date, '%Y-%m-%d')
                 end_date = datetime.strptime(end_date, '%Y-%m-%d')
+                if start_date > end_date:
+                    logger.error("Invalid date range: start_date must be before end_date.")
+                    return
+                
+                if start_date > yesterday or end_date > yesterday:
+                    logger.error("Invalid date range: future dates not allowed.")
+                    return
+                
                 # Generate a list of dates between start and end that are monday-friday
                 dates = [
                 (start_date + timedelta(days=i)).strftime("%Y-%m-%d")
@@ -122,19 +135,25 @@ def main():
                     except ValueError:
                         pass
                 
+                # Check for future dates
+                yesterday = datetime.today() - timedelta(days=1)
+                future_dates = [date for date in valid_dates if datetime.strptime(date, '%Y-%m-%d') > yesterday]
+                if future_dates:
+                    logger.error(f"Future dates detected: {', '.join(future_dates)}. Future dates are not allowed.")
+                    return
+                # If no remaining dates
                 if not valid_dates:
                     logger.error("Invalid dates: Dates must be Monday through Friday.")
                     return
-                
                 dates = valid_dates
             except ValueError as e:
                 logger.error(f"Invalid date/s format: {e}")
                 return
             logger.info("Specific dates processed successfully.")
-        
+
+        # Warning for dates before 2021
         if any(datetime.strptime(date, '%Y-%m-%d').year < 2021 for date in dates):
             logger.info('Dates before 2021 have inconsistent indexing in the SGX Website, use with caution.')
-        
         # After arguments parsing, pass dates to download function
         download(dates)
 
