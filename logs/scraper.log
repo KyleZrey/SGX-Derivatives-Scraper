@@ -1,0 +1,24 @@
+2024-05-31 17:41:00,952 - INFO - Parsing command line arguments...
+2024-05-31 17:41:00,955 - INFO - Command line arguments parsed successfully.
+2024-05-31 17:41:00,955 - INFO - Processing latest dates option...
+2024-05-31 17:41:00,955 - INFO - Latest dates processed successfully.
+2024-05-31 17:41:07,473 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/WEBPXTICK_DT.zip to downloads\2024-05-30\WEBPXTICK_DT_20240530.zip
+2024-05-31 17:41:07,475 - INFO - Downloaded WEBPXTICK_DT_20240530.zip for date 2024-05-30 to downloads\2024-05-30\WEBPXTICK_DT_20240530.zip
+2024-05-31 17:41:08,090 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/TickData_structure.dat to downloads\2024-05-30\TickData_structure.dat
+2024-05-31 17:41:08,091 - INFO - Downloaded TickData_structure.dat for date 2024-05-30 to downloads\2024-05-30\TickData_structure.dat
+2024-05-31 17:41:08,577 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/TC.txt to downloads\2024-05-30\TC_20240530.txt
+2024-05-31 17:41:08,579 - INFO - Downloaded TC_20240530.txt for date 2024-05-30 to downloads\2024-05-30\TC_20240530.txt
+2024-05-31 17:41:09,169 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/TC_structure.dat to downloads\2024-05-30\TC_structure.dat
+2024-05-31 17:41:09,171 - INFO - Downloaded TC_structure.dat for date 2024-05-30 to downloads\2024-05-30\TC_structure.dat
+2024-05-31 17:41:09,462 - INFO - Parsing command line arguments...
+2024-05-31 17:41:09,464 - INFO - Command line arguments parsed successfully.
+2024-05-31 17:41:09,465 - INFO - Processing failed_downloads.txt...
+2024-05-31 17:41:09,471 - INFO - Dates from failed_downloads.txt processed successfully.
+2024-05-31 17:41:10,086 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5584/WEBPXTICK_DT.zip to downloads\2024-01-01\WEBPXTICK_DT_20240101.zip
+2024-05-31 17:41:10,087 - INFO - Downloaded WEBPXTICK_DT_20240101.zip for date 2024-01-01 to downloads\2024-01-01\WEBPXTICK_DT_20240101.zip
+2024-05-31 17:41:10,625 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5584/TickData_structure.dat to downloads\2024-01-01\TickData_structure.dat
+2024-05-31 17:41:10,628 - INFO - Downloaded TickData_structure.dat for date 2024-01-01 to downloads\2024-01-01\TickData_structure.dat
+2024-05-31 17:41:11,139 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5584/TC.txt to downloads\2024-01-01\TC_20240101.txt
+2024-05-31 17:41:11,141 - INFO - Downloaded TC_20240101.txt for date 2024-01-01 to downloads\2024-01-01\TC_20240101.txt
+2024-05-31 17:41:11,709 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5584/TC_structure.dat to downloads\2024-01-01\TC_structure.dat
+2024-05-31 17:41:11,712 - INFO - Downloaded TC_structure.dat for date 2024-01-01 to downloads\2024-01-01\TC_structure.dat

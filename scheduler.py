@@ -6,6 +6,8 @@ import argparse
 
 def run_scraper():
     subprocess.run(["python", "scraper.py", "--latest"])
+    # Optional if you want to retry failed_downloads daily
+    subprocess.run(["python", "scraper.py", "--retry-failed"])
 
 def job():
     # Check if today is Tuesday to Saturday
@@ -25,7 +27,7 @@ def main(scheduled_time):
         print("Scheduler stopped by user")
     except Exception as e:
         print(f"An error occurred: {e}")
-        
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Schedule scraper.py to run at a specific time.')
     parser.add_argument('--time', type=str, required=True, 
