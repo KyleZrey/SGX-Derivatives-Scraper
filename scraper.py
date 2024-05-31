@@ -120,7 +120,7 @@ def main():
                     return
                 # If no remaining dates
                 if not valid_dates:
-                    logger.error('Invalid dates in failed_downloads.txt: Dates must be Monday through Friday.')
+                    logger.info('No remaining valid dates in failed_downloads.txt.')
                     return
                 dates = valid_dates
             except (ValueError, TypeError) as e:
