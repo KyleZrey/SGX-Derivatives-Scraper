@@ -8,7 +8,8 @@ def download(dates):
     # Setup url and path variables
     url = "https://links.sgx.com/1.0.0/derivatives-historical/{index}/{file}"
     download_path = 'downloads'
-    failed_downloads = 'failed_downloads.txt'
+    failed_downloads = 'logs/failed_downloads.txt'
+    failed_dates = set()
     
     # If multiple dates loop around all of it
     for date in dates:
@@ -17,16 +18,17 @@ def download(dates):
         except Exception as e:
             logger.error(f"Skipping date {date} due to error: {e}")
             downloads_logger.error(f"Skipping date {date} due to error: {e}")
+            failed_dates.add(date)
             continue
 
         date_dir = os.path.join(download_path, date)
         if not os.path.exists(date_dir):
             os.makedirs(date_dir)
         files = [
-        ("WEBPXTICK_DT.zip", f"WEBPXTICK_DT_{date.replace('-', '')}.zip"),
-        ("TickData_structure.dat", "TickData_structure.dat"),
-        ("TC.txt", f"TC_{date.replace('-', '')}.txt"),
-        ("TC_structure.dat", "TC_structure.dat")
+            ("WEBPXTICK_DT.zip", f"WEBPXTICK_DT_{date.replace('-', '')}.zip"),
+            ("TickData_structure.dat", "TickData_structure.dat"),
+            ("TC.txt", f"TC_{date.replace('-', '')}.txt"),
+            ("TC_structure.dat", "TC_structure.dat")
         ]
         for original_file, new_file_name in files:
             file_url = url.format(index=index, file=original_file)
@@ -38,18 +40,28 @@ def download(dates):
             except Exception as e:
                 logger.error(f"Failed to download {new_file_name} for date {date}: {e}")
                 downloads_logger.error(f"Failed to download {new_file_name} for date {date}: {e}")
-                # Record the failed download
-                with open(failed_downloads, 'a') as f:
-                    f.write(f"{date} ")
+                failed_dates.add(date)
+
+    # Record the failed downloads (one entry per date)
+    if failed_dates:
+        with open(failed_downloads, 'a') as f:
+            for date in failed_dates:
+                f.write(f"{date} ")
 
 def download_file(file_url, file_path):
     response = requests.get(file_url, stream=True)
     if response.status_code == 200:
-        with open(file_path, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                f.write(chunk)
+        content_type = response.headers.get('Content-Type')
+        # Check if the content type is not HTML
+        if 'text/html' not in content_type:
+            with open(file_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+            logger.info(f"Downloaded file from {file_url} to {file_path}")
+        else:
+            raise Exception(f"No file found at {file_url}: received HTML page instead.")
     else:
-        raise Exception(f"Failed to download file: HTTP {response.status_code}")
+        raise Exception(f"Failed to download file from {file_url}: HTTP {response.status_code}")
 
 def date_to_index(date):
     try: # Indexing is only consistent after 2021
