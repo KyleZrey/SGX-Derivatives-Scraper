@@ -72,24 +72,6 @@ def date_to_index(date):
 def main():
     #Command line arguments parser
     try:
-        logger.info("Parsing command line arguments...")
-
-        parser = argparse.ArgumentParser(description="Specify Date Range")
-        # Latest files only
-        parser.add_argument('--latest', action='store_true', 
-                            help='''Include the latest files available. Yesterday\'s 
-                            files if yesterday is a weekday, Last Friday\'s files if not.''')# Date range
-        # Date range
-        parser.add_argument('--date-range', required=False, nargs=2,
-                            help='''Dates in the format YYYY-MM-DD. space separated, 
-                            inclusive, and start-date < end-date''')
-        # Specific date or a list of dates
-        parser.add_argument('--date', required=False, nargs='+',
-                            help='Date/s in the format YYYY-MM-DD, space separated')
-        args = parser.parse_args()
-
-        logger.info("Command line arguments parsed successfully.")
-
         if args.latest:
             logger.info("Processing latest dates option...")
             yesterday = datetime.today() - timedelta(days=1)
@@ -170,6 +152,25 @@ def main():
 if __name__ == "__main__":
     logger = setup_logger("scraper.log")
     downloads_logger = setup_logger_file("downloads.log")
+
+    logger.info("Parsing command line arguments...")
+
+    parser = argparse.ArgumentParser(description="Specify Date Range")
+    # Latest files only
+    parser.add_argument('--latest', action='store_true', 
+                        help='''Include the latest files available. Yesterday\'s 
+                        files if yesterday is a weekday, Last Friday\'s files if not.''')# Date range
+    # Date range
+    parser.add_argument('--date-range', required=False, nargs=2,
+                        help='''Dates in the format YYYY-MM-DD. space separated, 
+                        inclusive, and start-date < end-date''')
+    # Specific date or a list of dates
+    parser.add_argument('--date', required=False, nargs='+',
+                        help='Date/s in the format YYYY-MM-DD, space separated')
+    
+    args = parser.parse_args()
+    logger.info("Command line arguments parsed successfully.")
+
     main()
 
 
