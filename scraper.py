@@ -52,12 +52,19 @@ def download_file(file_url, file_path):
         raise Exception(f"Failed to download file: HTTP {response.status_code}")
 
 def date_to_index(date):
-    try: # Indexing is only consistent from 2021-01-01
+    try: # Indexing is only consistent after 2021
         start_date = datetime.strptime('2021-01-01', '%Y-%m-%d')
         end_date = datetime.strptime(date, '%Y-%m-%d')
-        days_difference = (end_date - start_date).days
-        weekdays = sum(1 for i in range(days_difference) if (start_date + timedelta(days=i)).weekday() < 5)
-        return weekdays + 4803
+        if end_date < start_date:
+            days_difference = (start_date - end_date).days
+            weekdays = sum(1 for i in range(days_difference) if (end_date + timedelta(days=i)).weekday() < 5)
+            index = 4803 - weekdays
+        else:
+            days_difference = (end_date - start_date).days
+            weekdays = sum(1 for i in range(days_difference) if (start_date + timedelta(days=i)).weekday() < 5)
+            index = 4803 + weekdays
+        print(index)
+        return index
     except (ValueError, TypeError) as e:
         logger.error(f"Failed to calculate date index: {e}")
         raise
@@ -153,12 +160,9 @@ def main():
 
         # Warning for dates before 2021
         if any(datetime.strptime(date, '%Y-%m-%d').year < 2021 for date in dates):
-            logger.info('Dates before 2021 have inconsistent indexing in the SGX Website, use with caution.')
+            logger.warning('Dates before 2021 have inconsistent indexing in the SGX Website, use with caution.')
         # After arguments parsing, pass dates to download function
         download(dates)
-
-
-
 
     except Exception as e:
         logger.error(f"An error occurred: {e}")
