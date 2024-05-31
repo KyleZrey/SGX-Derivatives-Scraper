@@ -75,7 +75,7 @@ def date_to_index(date):
             days_difference = (end_date - start_date).days
             weekdays = sum(1 for i in range(days_difference) if (start_date + timedelta(days=i)).weekday() < 5)
             index = 4803 + weekdays
-        print(index)
+
         return index
     except (ValueError, TypeError) as e:
         logger.error(f"Failed to calculate date index: {e}")

@@ -1,0 +1,20 @@
+2024-05-31 09:39:30,264 - INFO - Parsing command line arguments...
+2024-05-31 09:39:30,265 - INFO - Command line arguments parsed successfully.
+2024-05-31 09:39:30,266 - INFO - Processing specific date/s option...
+2024-05-31 09:39:30,268 - ERROR - Invalid dates: Dates must be Monday through Friday.
+2024-05-31 09:39:50,325 - INFO - Parsing command line arguments...
+2024-05-31 09:39:50,326 - INFO - Command line arguments parsed successfully.
+2024-05-31 09:39:50,327 - INFO - Processing specific date/s option...
+2024-05-31 09:39:50,329 - ERROR - Invalid dates: Dates must be Monday through Friday.
+2024-05-31 10:22:29,677 - INFO - Parsing command line arguments...
+2024-05-31 10:22:29,678 - INFO - Command line arguments parsed successfully.
+2024-05-31 10:22:29,678 - INFO - Processing latest dates option...
+2024-05-31 10:22:29,678 - INFO - Latest dates processed successfully.
+2024-05-31 10:22:35,719 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/WEBPXTICK_DT.zip to downloads\2024-05-30\WEBPXTICK_DT_20240530.zip
+2024-05-31 10:22:35,723 - INFO - Downloaded WEBPXTICK_DT_20240530.zip for date 2024-05-30 to downloads\2024-05-30\WEBPXTICK_DT_20240530.zip
+2024-05-31 10:22:36,304 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/TickData_structure.dat to downloads\2024-05-30\TickData_structure.dat
+2024-05-31 10:22:36,309 - INFO - Downloaded TickData_structure.dat for date 2024-05-30 to downloads\2024-05-30\TickData_structure.dat
+2024-05-31 10:22:36,958 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/TC.txt to downloads\2024-05-30\TC_20240530.txt
+2024-05-31 10:22:36,961 - INFO - Downloaded TC_20240530.txt for date 2024-05-30 to downloads\2024-05-30\TC_20240530.txt
+2024-05-31 10:22:37,686 - INFO - Downloaded file from https://links.sgx.com/1.0.0/derivatives-historical/5692/TC_structure.dat to downloads\2024-05-30\TC_structure.dat
+2024-05-31 10:22:37,689 - INFO - Downloaded TC_structure.dat for date 2024-05-30 to downloads\2024-05-30\TC_structure.dat
