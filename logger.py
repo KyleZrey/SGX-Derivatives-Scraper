@@ -3,6 +3,13 @@ import os
 
 log_dir = 'logs'
 
+class CustomLogger(logging.Logger):
+    def error(self, msg, *args, **kwargs):
+        # Set stack_info and exc_info to True by default
+        kwargs.setdefault('stack_info', True)
+        kwargs.setdefault('exc_info', True)
+        return super().error(msg, *args, **kwargs)
+
 def setup_logger(file_name):
 
      # Create log directory if it doesn't exist
